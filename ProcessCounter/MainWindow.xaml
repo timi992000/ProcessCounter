@@ -1,0 +1,71 @@
+﻿<Window x:Class="ProcessCounter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessCounter"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+  <Grid Margin="10">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <CheckBox Content="Exact Match"
+                IsChecked="{Binding ExactMatch, Mode=TwoWay}"
+                Grid.Column="0" />
+      <Button Margin="10 0 0 0"
+              Click="__ToggleAction"
+              Width="25"
+              Height="25"
+              Grid.Column="1">
+        <Path Data="{Binding PathData}"
+              Fill="{Binding PathColor}">
+          <Path.LayoutTransform>
+            <ScaleTransform ScaleX="0.2"
+                            ScaleY="0.2" />
+          </Path.LayoutTransform>
+        </Path>
+      </Button>
+      <TextBox TextChanged="__TextChanged"
+               Margin="10 0 0 0"
+               Grid.Column="2" />
+    </Grid>
+
+    <TextBlock Text="{Binding TextResult}"
+               Grid.Row="1" />
+
+    <ListBox ItemsSource="{Binding Processes}"
+             Grid.Row="2">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <local:CrossButton Grid.Column="0"
+                               Click="__Kill" />
+            <TextBlock Text="{Binding}"
+                       Grid.Column="1"
+                       Margin="5 0 0 0" />
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+  </Grid>
+</Window>
